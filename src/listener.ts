@@ -19,7 +19,12 @@ stan.on("connect", () => {
     process.exit();
   });
 
-  const options = stan.subscriptionOptions().setManualAckMode(true);
+  const options = stan
+    .subscriptionOptions()
+    .setManualAckMode(true)
+    .setDeliverAllAvailable()
+    .setDurableName("order-srv");
+
   const subscription = stan.subscribe(
     "TicketCreated",
     "order-srv-queue-group",
